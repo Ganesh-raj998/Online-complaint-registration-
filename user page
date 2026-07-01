@@ -1,0 +1,36 @@
+import React from 'react';
+
+const User = ({ user }) => {
+  const depts = ["Revenue", "Police", "Electricity", "Water", "Municipal", "Health", "Education", "Transport", "Agriculture", "Forest", "Housing", "Welfare", "Civil Supplies", "Irrigation", "Labor"];
+  const dummyComplaints = Array(10).fill(0).map((_, i) => ({ id: i+1, dept: depts[i%15], status: ["resolve", "review", "assign"][i%3] }));
+
+  return (
+    <div>
+      <div className="navbar">
+        <h1>CITIZENS COMPLAINT PORTAL</h1>
+        <i className="fa-solid fa-ellipsis-vertical" style={{fontSize: '24px'}}></i>
+      </div>
+      <div className="container">
+        <h3>Post a Complaint</h3>
+        <div className="form-box" style={{margin: '20px 0'}}>
+          <input className="form-group" placeholder="Full Name" />
+          <input className="form-group" placeholder="Mail ID" />
+          <select className="form-group">
+            {depts.map(d => <option key={d}>{d}</option>)}
+          </select>
+          <textarea className="form-group" placeholder="Your Complaint" rows="4"></textarea>
+          <button>Submit</button>
+        </div>
+        <hr/><br/>
+        <h3>Check Your Complaints Status</h3><br/>
+        {dummyComplaints.map(c => (
+          <div key={c.id} className="complaint-card">
+            <span>Complaint #{c.id} - {c.dept} Department</span>
+            <span className={`status ${c.status}`} style={{float: 'right'}}>{c.status}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+export default User;
