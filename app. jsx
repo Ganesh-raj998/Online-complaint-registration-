@@ -1,0 +1,19 @@
+import React, { useState } from 'react';
+import LoginRegister from './pages/LoginRegister';
+import User from './pages/User';
+import Admin from './pages/Admin';
+import Officer from './pages/Officer';
+
+function App() {
+  const [user, setUser] = useState(null); // { name: '', role: '' }
+
+  if (!user) return <LoginRegister onLogin={setUser} />;
+
+  switch(user.role) {
+    case 'citizen': return <User user={user} />;
+    case 'admin': return <Admin user={user} />;
+    case 'officer': return <Officer user={user} />;
+    default: return <LoginRegister onLogin={setUser} />;
+  }
+}
+export default App;
