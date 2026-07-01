@@ -1,0 +1,37 @@
+import React, { useState } from 'react';
+
+const Officer = ({ user }) => {
+  const [selected, setSelected] = useState(null);
+  const complaints = Array(20).fill(0).map((_, i) => ({ 
+    id: i+1, 
+    user: "Citizen "+(i+1), 
+    msg: "This is the full detail of complaint number " + (i+1) + ". There is an issue in my locality.", 
+    status: i%2===0 ? "assign" : "review" 
+  }));
+
+  return (
+    <div>
+      <div className="navbar"><h1>OFFICER DASHBOARD</h1></div>
+      <div className="container">
+        <h3>Active Complaints (20)</h3><br/>
+        {complaints.map(c => (
+          <div key={c.id} className="complaint-card" onClick={() => setSelected(c)}>
+            <strong>{c.user}</strong>: Complaint Detail (Click to view)
+            <span className={`status ${c.status}`} style={{float: 'right'}}>{c.status}</span>
+          </div>
+        ))}
+        {selected && (
+          <div style={{position:'fixed', top:0, left:0, width:'100%', height:'100%', background:'rgba(0,0,0,0.7)', display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <div className="form-box">
+              <h2>Complaint Details</h2><br/>
+              <p><strong>From:</strong> {selected.user}</p><br/>
+              <p><strong>Message:</strong> {selected.msg}</p><br/>
+              <button onClick={() => setSelected(null)}>Close</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+export default Officer;
