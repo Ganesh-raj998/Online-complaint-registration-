@@ -1,0 +1,33 @@
+import express from 'express';
+import User from '../models/User.js';
+
+const router = express.Router();
+
+// Register Account
+router.post('/register', async (req, res) => {
+  try {
+    const { fullName, mailId, phoneNumber, password, address, role } = req.body;
+    const userExists = await User.findOne({ mailId });
+    if (userExists) return res.status(400).json({ message: 'User already exists' });
+
+    const user = await User.create({ fullName, mailId, phoneNumber, password, address, role });
+    res.status(201).json({ message: 'Account created successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Login
+router.post('/login', async (req, res) => {
+  try {
+    const { mailId, password, role } = req.body;
+    const user = await User.findOne({ mailId, password, role });
+    if (!user) return res.status(400).json({ message: 'Invalid credentials or account not found' });
+
+    res.status(200).json({ name: user.fullName, role: user.role, mailId: user.mailId });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+export default router;
