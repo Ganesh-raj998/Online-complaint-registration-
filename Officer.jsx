@@ -4,7 +4,7 @@ const Officer = ({ user, isAdminView = false }) => {
   const [selected, setSelected] = useState(null);
   const [complaints, setComplaints] = useState([]);
 
-  useEffect(() => {
+  useEffect(() =>v {
     const url = isAdminView 
       ? 'http://localhost:5000/api/admin/all-complaints' 
       : 'http://localhost:5000/api/officer/complaints';
