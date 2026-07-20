@@ -4,7 +4,7 @@ const User = ({ user }) => {
   const depts = ["Revenue", "Police", "Electricity", "Water", "Municipal", "Health", "Education", "Transport", "Agriculture", "Forest", "Housing", "Welfare", "Civil Supplies", "Irrigation", "Labor"];
   const [complaints, setComplaints] = useState([]);
   const [complaintText, setComplaintText] = useState('');
-  const [selectedDept, setSelectedDept] = useState(depts[0]);
+  const [selectedDept, setSeclectedDept] = useState(depts[0]);
 
   // Fetch Citizen's Real Complaints from DB
   const fetchComplaints = async () => {
